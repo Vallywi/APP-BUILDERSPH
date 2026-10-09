@@ -153,79 +153,126 @@ These are deliberately **simple pipelines** (STT + ONE LLM or TTS step — no OS
 
 ## 15 more ideas (16–30), grouped by disability area
 
-All keep offline speech at the core and stay *assistive daily-life* (not medical). Each line notes the pipeline so you can gauge effort.
+All keep offline speech at the core and stay *assistive daily-life* (not medical).
 
 ### For the Deaf / Hard-of-Hearing
 
-**16. Tingin-Tono — Offline tone/emotion caption tags**
-Captions aren't enough — the Deaf also miss *how* something was said. STT + a local LLM tags each caption with tone (e.g., "[galit]", "[nagbibiro]", "[tanong]") so meaning isn't lost.
-*Pipeline: STT + 1 LLM classify step + caption UI. Easy–medium.*
+### 16. Tingin-Tono — Offline tone/emotion caption tags
+- **Who:** Deaf and hard-of-hearing users who read captions but miss *how* something was said (sarcasm, anger, a joke, a question).
+- **What:** Someone speaks → offline STT captions it → a local LLM tags each line with tone ("[galit]", "[nagbibiro]", "[tanong]", "[malungkot]") so the emotional meaning isn't lost, only the words.
+- **Why local:** Captions must be instant for a live conversation, work with no signal, and keep private talk off the cloud.
+- **Effort:** Easy–medium. STT + one LLM classify step + caption UI.
+- **Demo:** Offline, a judge says the same sentence happily then angrily — the captions show "[masaya]" vs "[galit]" even though the words match.
 
-**17. Sino'ng Nagsasalita — Offline speaker labeling in group talk**
-In a group, the Deaf user can't tell who's talking. Captures audio, labels captions by speaker turn ("Tagapagsalita 1 / 2"), so a group conversation becomes a readable script offline.
-*Pipeline: STT + simple turn/segment logic + UI. Medium.*
+### 17. Sino'ng Nagsasalita — Offline speaker labeling in group talk
+- **Who:** Deaf users in group settings (family, meetings) who can't tell who said what from captions alone.
+- **What:** Captures room audio → offline STT → labels each caption by speaker turn ("Tagapagsalita 1 / 2 / 3") so a group conversation becomes a readable, attributed script.
+- **Why local:** Group conversations are private, happen anywhere without WiFi, and need instant turn-by-turn captions.
+- **Effort:** Medium. STT + simple turn/segment logic + script UI. (Keep speaker labels simple — by pause/turn, not full voice-ID.)
+- **Demo:** Offline, two judges take turns speaking → the screen builds a clean labeled transcript showing who said each line.
 
-**18. Sabay-Basa — Offline caption glasses companion (phone screen)**
-Phone sits on the table showing giant live captions in landscape — a cheap "caption display" for a dinner or meeting, fully offline. Pure Tinig in a big-display form factor.
-*Pipeline: chunked STT + big landscape UI. Easy–medium.*
+### 18. Sabay-Basa — Offline tabletop caption display
+- **Who:** Deaf/HoH users who want a cheap "caption screen" for a dinner, class, or meeting without special glasses.
+- **What:** A phone or laptop laid flat shows **giant landscape live captions** of whoever's speaking — essentially Tinig in a big-display form factor meant to sit on a table.
+- **Why local:** Must caption instantly, anywhere, and never ship private room audio to the cloud.
+- **Effort:** Easy–medium. Chunked STT + a big high-contrast landscape UI.
+- **Demo:** Offline, set the phone on the table; as a judge talks, huge captions scroll live for the whole table to read.
 
 ### For speech-impaired / non-verbal
 
-**19. Dali-Salita — Offline phrase shortcuts that speak**
-A grid of the user's most-needed phrases; tap one → on-device TTS says it. Add new phrases by voice (STT). A personal, instant, offline AAC speedboard.
-*Pipeline: STT to add + TTS to speak + grid UI. Easy.*
+### 19. Dali-Salita — Offline phrase speedboard that speaks
+- **Who:** Non-verbal / speech-impaired users who need to say common things fast.
+- **What:** A grid of the user's most-needed phrases; tap one → on-device TTS says it aloud. The user (or carer) adds new phrases **by voice** via offline STT, so the board grows to fit their life.
+- **Why local:** It's the user's voice — must be instant, always available offline, and private.
+- **Effort:** Easy. STT to add + TTS to speak + grid UI.
+- **Demo:** Offline, tap "Pwede ba akong humingi ng tulong?" → the laptop speaks it; then add a new phrase by voice and tap-speak it.
 
-**20. Buo-Mo — Offline sentence completion for slow typers**
-Users who type one word at a time with difficulty: type "tubig" → a local LLM offers full-sentence options ("Pwede akong humingi ng tubig?") → pick → TTS speaks it. Cuts effort dramatically.
-*Pipeline: 1 LLM predict step + TTS + UI. Easy–medium.*
+### 20. Buo-Mo — Offline sentence completion for slow typers
+- **Who:** Users with motor/speech disabilities who type one word at a time with great effort.
+- **What:** Type a single word like "tubig" → a local LLM offers 3 full-sentence options ("Pwede akong humingi ng tubig?", "Gusto ko ng tubig.") → pick one → TTS speaks it. Turns one word into a full spoken sentence.
+- **Why local:** Must respond instantly as they type, keep private messages on-device, and work with no signal.
+- **Effort:** Easy–medium. One LLM predict step + TTS + a simple pick UI.
+- **Demo:** Offline, type "sakit" → it offers full sentences → tap → the laptop says "Masakit ang ulo ko."
 
-**21. Ingay-Ko — Offline sound-to-phrase for users who vocalize but can't form words**
-Maps a user's distinct sounds/gestures (chosen on screen) to spoken phrases via TTS; STT handles any words they *can* say. Deeply personal, deeply impactful.
-*Pipeline: mapping UI + TTS + optional STT. Easy.*
+### 21. Ingay-Ko — Offline sound/gesture-to-phrase mapper
+- **Who:** Users who vocalize sounds or make simple gestures but can't form clear words.
+- **What:** The user (or carer) maps each chosen on-screen cue to a spoken phrase; tapping/triggering a cue makes TTS speak it. Offline STT also captures any words they *can* say. A fully personalized voice.
+- **Why local:** Deeply personal communication that must work instantly and never leave the device.
+- **Effort:** Easy. A mapping UI + TTS + optional STT.
+- **Demo:** Offline, trigger two personalized cues → the laptop speaks "Oo" and "Ayaw ko" — a voice built for one specific person.
 
 ### For low-vision / blind
 
-**22. Basa-Pera — Offline spoken money & label reader (single photo)**
-Blind users point the camera once at a bill/label; a local vision model reads it and TTS says it aloud ("beinte pesos"). Speech-out is the accessibility core.
-*Pipeline: 1 vision model + TTS. Medium (adds vision).*
+### 22. Basa-Pera — Offline spoken money & label reader
+- **Who:** Blind and low-vision users who can't read bills, prices, or product labels.
+- **What:** Point the camera once at a banknote/label → a local vision model reads it → on-device TTS says it aloud ("beinte pesos", "mani, expiry Marso 2027"). The spoken output is the accessibility core.
+- **Why local:** Must work in a store aisle with no signal, instantly, and private — a blind user can't wait on a cloud round-trip at the counter.
+- **Effort:** Medium (adds a vision model). Single-image capture + vision + TTS. Use a pre-trained model, no training.
+- **Demo:** Offline, hold up a bill → the laptop says its value out loud.
+- **Risk note:** Keep to single still images, not live video, to stay 12h-safe.
 
-**23. Saan-Ako — Offline voice-queried note locator**
-Blind users leave spoken location notes ("nasa ikalawang drawer ang gamot") → later ask by voice "nasaan ang gamot?" → it speaks the answer. A voice memory for where things are.
-*Pipeline: STT save + STT query + TTS. Easy.*
+### 23. Saan-Ako — Offline voice-queried item locator
+- **Who:** Blind/low-vision and memory-impaired users who forget where they put things.
+- **What:** Leave a spoken note ("nasa ikalawang drawer ang gamot") → offline STT saves it → later ask by voice "nasaan ang gamot?" → it finds and speaks the answer. A voice memory for the physical world.
+- **Why local:** Notes about one's home are private, and the tool must answer instantly anywhere offline.
+- **Effort:** Easy. STT to save + STT to query + simple local store + TTS.
+- **Demo:** Offline, save two locations by voice, then ask where something is and hear it answered aloud.
 
-**24. Bilang-Boses — Offline fully-spoken calculator/helper**
-Blind/low-vision users do math and simple conversions entirely by voice: speak "limampu't lima times tatlo" → STT → compute → TTS speaks the result. No screen needed.
-*Pipeline: STT + parse/compute + TTS. Easy.*
+### 24. Bilang-Boses — Offline fully-spoken calculator & converter
+- **Who:** Blind/low-vision users (and anyone hands-busy) who can't use an on-screen calculator.
+- **What:** Speak "limampu't lima times tatlo" or "ilang piso ang singkwenta dolyar" → offline STT → compute locally → TTS speaks the result. No screen reading needed.
+- **Why local:** Instant, private, works offline — and a daily tool shouldn't cost per cloud call.
+- **Effort:** Easy. STT + parse/compute + TTS.
+- **Demo:** Offline, speak a calculation and hear the answer spoken back, eyes closed.
 
 ### For cognitive / neurodivergent
 
-**25. Isa-Isa — Offline voice task breaker**
-Speak a big task ("maglinis ng kwarto") → a local LLM breaks it into tiny steps → TTS reads one step at a time, next step on voice command. For executive-function support.
-*Pipeline: STT + 1 LLM step + TTS. Easy–medium.*
+### 25. Isa-Isa — Offline voice task breaker
+- **Who:** Users with executive-function challenges (ADHD, cognitive disability) overwhelmed by big tasks.
+- **What:** Speak a big task ("maglinis ng kwarto") → offline STT → a local LLM breaks it into tiny steps → TTS reads **one step at a time**, advancing only on the user's voice command ("susunod").
+- **Why local:** Instant, private, and always available — focus support can't depend on signal.
+- **Effort:** Easy–medium. STT + one LLM breakdown + TTS + step state.
+- **Demo:** Offline, speak a chore → it reads just step 1; say "susunod" → step 2. No overwhelm.
 
-**26. Hinahon — Offline spoken grounding guide for overwhelm**
-When overwhelmed, the user says "hindi ko kaya" → STT → a local LLM walks them through a calm, simple grounding routine by voice (breathe, name 5 things). Private, always available.
-*Pipeline: STT trigger + guided LLM/TTS script. Easy. (Frame as wellness aid, not therapy.)*
+### 26. Hinahon — Offline spoken grounding guide
+- **Who:** Neurodivergent users (and anyone) who get overwhelmed and need a calm voice to walk them through it.
+- **What:** The user says "hindi ko kaya" → offline STT → a local LLM/TTS gently guides a simple grounding routine by voice (slow breaths, name 5 things you see). Patient, private, always there.
+- **Why local:** This has to work in the exact moment, offline, and the user's distress is intensely private.
+- **Effort:** Easy. STT trigger + a guided LLM/TTS script.
+- **Demo:** Offline, say the trigger phrase → a calm step-by-step grounding routine plays by voice.
+- **Risk note:** Frame as a wellness/calming aid, not therapy or medical care.
 
-**27. Linaw-Utos — Offline instruction simplifier by voice**
-Read a confusing instruction aloud (or load text) → a local LLM rewrites it into dead-simple Taglish steps → TTS reads them. For users who struggle with complex language.
-*Pipeline: STT/text in + 1 LLM simplify + TTS. Easy.*
+### 27. Linaw-Utos — Offline instruction simplifier by voice
+- **Who:** Users who struggle with complex language (cognitive disability, low literacy).
+- **What:** Read a confusing instruction aloud, or load text → offline STT/text in → a local LLM rewrites it into dead-simple Taglish steps → TTS reads them clearly.
+- **Why local:** Works on any document anywhere offline, and keeps personal paperwork private.
+- **Effort:** Easy. STT/text in + one LLM simplify + TTS.
+- **Demo:** Offline, read a dense "instructions" paragraph → it speaks back 3 simple steps anyone can follow.
 
 ### For motor disability / limited mobility
 
-**28. Boses-Sulat — Offline voice-to-formatted-message composer**
-Fully hands-free: speak → STT → a local LLM formats it into a proper message/email draft → read back for confirmation. No keyboard, ever.
-*Pipeline: STT + 1 LLM format + TTS confirm. Easy–medium.*
+### 28. Boses-Sulat — Offline hands-free message composer
+- **Who:** Users with motor disabilities who can't type comfortably.
+- **What:** Speak freely → offline STT → a local LLM cleans it into a proper message/email draft → TTS reads it back for confirmation. A full message written without touching the keyboard.
+- **Why local:** Private correspondence stays on-device, works offline, responds instantly.
+- **Effort:** Easy–medium. STT + one LLM format + TTS confirm.
+- **Demo:** Offline, ramble a message out loud → it shows a clean draft and reads it back for a thumbs-up.
 
-**29. Tawag-Handa — Offline spoken quick-contact helper**
-Speak "tawagan si Nanay" → STT → it pulls up the pre-saved contact + a drafted message, read back by TTS to confirm, all offline. (Stops at drafting — no telephony needed for the demo.)
-*Pipeline: STT + simple contact match + TTS. Easy.*
+### 29. Tawag-Handa — Offline spoken quick-contact helper
+- **Who:** Users with limited mobility who need to reach people quickly by voice.
+- **What:** Say "tawagan si Nanay" → offline STT → it matches a pre-saved contact and drafts a message, read back by TTS to confirm. (Stops at drafting/confirming — no telephony needed for the demo.)
+- **Why local:** Must respond instantly and keep the contact list private; works with no signal.
+- **Effort:** Easy. STT + simple contact match + TTS.
+- **Demo:** Offline, say a contact's name → it surfaces them with a ready message and reads it back.
 
 ### Cross-disability / universal
 
-**30. Dalawang-Wika — Offline voice phrase translator for Deaf+hearing or mixed-language homes**
-Speak in Tagalog → offline STT → local model shows/says it in English (or simpler Tagalog), and vice-versa — a tabletop bridge for mixed-ability, mixed-language conversations with no signal.
-*Pipeline: STT + 1 translate/simplify LLM + TTS. Medium.*
+### 30. Dalawang-Wika — Offline voice phrase bridge
+- **Who:** Mixed-ability or mixed-language homes (e.g., a Deaf or non-Tagalog member) trying to communicate at the table.
+- **What:** Speak in Tagalog → offline STT → a local model shows and speaks it in English or simpler Tagalog, and vice-versa — a tabletop two-way bridge for conversations across language/ability, with no signal.
+- **Why local:** A shared, always-on bridge for private family talk can't depend on the cloud and must respond instantly for natural turn-taking.
+- **Effort:** Medium. STT + one translate/simplify LLM + TTS + split UI.
+- **Demo:** Offline, one person speaks Tagalog → it appears/speaks in English for the other, then back the other way.
 
 ---
 
